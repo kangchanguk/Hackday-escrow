@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE HTML>
+<!--
+	Theory by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>SAFE-ESCROW</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{% static 'blog/assets/css/main.css' %}" />
+    </head>
+    <body class="subpage">
+        <header id="header">
+            <a href="/" class=logo style="margin-left: 10%;">Safe Escrow</a>
+            <div class="inner">
+                
+                <nav id="nav">
+                    {% if user.is_authenticated %}
+                    <p>name: {{user.name}} point: {{user.point}}<a href="{% url 'logout' %}">로그아웃</a></p>
+                    {% else %}
+                    <a href="{% url 'create' %}">회원가입</a>
+                    <a href="{% url 'login' %}">로그인</a>
+                    {% endif %}
+                </nav>
+                <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+            </div>
+        </header>
+    </body>
+	<body>
+        
+		<section id="three" class="wrapper special">
+			<div class="inner">
+				<header class="align-center">
+					<h2>회원 정보 페이지</h2>
+				</header>
+				<div class="align-left">
+                <h4>회원 정보</h4>
+                <ul>
+                    <li>email: {{ us.email }}</li>
+                    <li>name: {{ us.name }}</li>
+                    <li>date_joined: {{ us.date_joined }}</li>
+                    
+                    {% if  us.is_staff  == False %}
+                        <li>class: normal</li>
+                    {% else %}
+                        <li>class:staff</li>
+                    {% endif %}
+                
+                    <li style="color:crimson">point: {{us.point}}</li>
+                </ul>
+                </div>
+                <br>
+            
+                <div class="flex flex-2">
+					<article>
+						<h3>거래 내역</h3>
+                            <table class="table table-hover table-responsive">
+                                <thead>
+                                    <th>제품명</th><th>거래 일자</th><th>거래 성사 여부</th>
+                                </thead>
+                                <tbody>
+                                    {% for product in products %}
+                                    {% if product.finish == True and product.trader_id == use %}
+                                    <tr>  <!-- 테이블 행 click 시 url 이동 -->
+                                        <td>{{ product.material_name }}</td>
+                                        <td>
+                                            {{ product.trade_date }}
+                                        </td>
+                                        
+                                            {% if product.success == False %}
+                                                <td>환급 조치(거래 미성사)</td>
+                                            {% else %}
+                                                <td>거래 성사</td>
+                                            {% endif %}
+                                        <td>
+                                            {{ product.price }}
+                                        </td>
+                                            
+                                    {% endif %}	
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+					</article>
+					<article>
+                        <h3>거래 등록 내역</h3>
+                        <table class="table table-hover table-responsive">
+                            <thead>
+                                <th>제품명</th><th>등록 일자</th><th>거래 성사 여부</th><th>금액</th>
+                            </thead>
+                            <tbody>
+                                {% for product in products %}
+                                {% if product.user_id == use %}
+                                <tr>  <!-- 테이블 행 click 시 url 이동 -->
+                                    <td>{{ product.material_name }}</td>
+                                    <td>
+                                        {{ product.trade_date }}
+                                    </td>
+                                    
+                                        {% if product.success == True and product.finish == True%}
+                                            <td>거래 성사</td>
+                                        {% else %}
+                                            <td>거래 미성사</td>
+                                        {% endif %}
+                                    <td>
+                                        {{ product.price }}
+                                    </td>
+                                    
+                                        
+                                {% endif %}	
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+					</article>
+                </div>
+                
+			</div>
+		</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<div class="flex">
+						<div class="copyright">
+							&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
+						</div>
+						<ul class="icons">
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
+							<li><a href="#" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
+							<li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
+						</ul>
+					</div>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="{% static 'blog/assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'blog/assets/js/skel.min.js' %}"></script>
+			<script src="{% static 'blog/assets/js/util.js' %}"></script>
+			<script src="{% static 'blog/assets/js/main.js' %}"></script>
+
+	</body>
+
+</html>

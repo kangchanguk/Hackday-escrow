@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE HTML>
+<!--
+	Theory by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>SAFE-ESCROW</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{% static 'blog/assets/css/main.css' %}" />
+	</head>
+	<body>
+
+		<section id="three" class="wrapper special">
+			<div class="inner">
+				<header class="align-center">
+					<h2 style="font-weight: bold;">관리자 확인 페이지</h2>
+					<p>환급 조치와 입금 조치 중 적절한 조치를 해주세요</p>
+				</header>
+				<div class="flex flex-2">
+					<article>
+						<div class="image fit">
+							<img src="{% static photo %}" alt="Pic 01" />
+						</div>
+						<header>
+							<h3>거래 상품 사진</h3>
+						</header>
+						<p>거래 전 상품 사진 입니다.</p>
+						<footer>
+							<a href="refund/" class="button special">환급</a>
+						</footer>
+					</article>
+					<article>
+						<div class="image fit">
+							<img src="{% static photo1 %}" alt="Pic 02" />
+						</div>
+						<header>
+							<h3>배송 확인용 사진</h3>
+						</header>
+						<p>배송 사진의 유무 등을 고려하여 환급 조치와 입금 조치를 결정하세요</p>
+						<footer>
+							<a href="incount/" class="button special">입금</a>
+						</footer>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<div class="flex">
+						<div class="copyright">
+							&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
+						</div>
+						<ul class="icons">
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
+							<li><a href="#" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
+							<li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
+						</ul>
+					</div>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="{% static 'blog/assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'blog/assets/js/skel.min.js' %}"></script>
+			<script src="{% static 'blog/assets/js/util.js' %}"></script>
+			<script src="{% static 'blog/assets/js/main.js' %}"></script>
+
+	</body>
+
+</html>

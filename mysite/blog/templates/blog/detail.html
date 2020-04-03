@@ -1,0 +1,206 @@
+
+
+{% load static %}
+<!DOCTYPE HTML>
+<!--
+	Theory by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Safe Escrow</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{% static 'blog/assets/css/main.css' %}" />
+		<style>
+			#overlay {
+			  position: fixed;
+			  display: none;
+			  width: 100%;
+			  height: 100%;
+			  top: 0;
+			  left: 0;
+			  right: 0;
+			  bottom: 0;
+			  background-color: rgba(0,0,0,0.5);
+			  z-index: 2;
+			  cursor: pointer;
+			}
+			#text{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				font-size: 50px;
+				color: white;
+			
+				}
+			.center {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 50%;
+			}	
+		</style>
+	</head>
+	<body class="subpage">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="/" class="logo">Safe Escrow</a>
+					<nav id="nav">
+						{% if user.is_authenticated %}
+						<p style="color:white">name: {{user.name}} point: {{user.point}}<a href="{% url 'logout' %}">로그아웃</a></p>
+						{% else %}
+						<a href="{% url 'create' %}">회원가입</a>
+						<a href="{% url 'login' %}">로그인</a>
+                        {% endif %}
+					</nav>
+					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+				</div>
+			</header>
+
+		<!-- Three -->
+			<section id="three" class="wrapper">
+				<div class="inner">
+						<div id="overlay" onclick="off()">
+							<br>
+							<br>
+							<img src="{% static  photo1  %}" alt="" class="center" />
+						</div>
+					
+						<article>
+							<div class="row 400%">
+								<div class="6u 12u$(medium)">
+									
+									<span class="image fit"><img src="{% static  photo  %}" alt="" /></span>
+									{% if memo.ontrade == True and memo.delivery == True  %}
+										<a href="/{{ memo.pk }}/confirm/"><button class="btn btn-primary" type="button">manage</button></a>
+									{% endif %}
+								</div>
+								<div class="6u$ 12u$(medium)">
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Description</th>
+											
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>거래 명</td>
+													<td>{{ memo.material_name }}</td>
+											
+												</tr>
+												<tr>
+													<td>가격</td>
+													<td>{{ memo.price }}</td>
+											
+												</tr>
+												<tr>
+													<td>세부 거래 사항</td>
+													<td>{{ memo.explain }}</td>
+													
+												</tr>
+												<tr>
+													<td>거래 가능 여부</td>
+													{% if memo.ontrade == False %}
+														<td>거래 가능</td>
+													{% else %}
+														<td>거래 불가</td>
+													{% endif %}
+												</tr>
+												<tr>
+													<td>입금 여부</td>
+													{% if memo.inputmoney == False %}
+														<td>입금 미완료</td>
+													{% else %}
+														<td>입금 완료</td>
+													{% endif %}
+												</tr>
+												<tr>
+													<td>배송 여부</td>
+														
+													{% if memo.delivery == False %}
+														<td>배송준비중</td>
+													{% else %}
+														<td>배송 중</td>
+													{% endif %}
+													
+												</tr>
+												<tr>
+													<td>등록자</td>
+													<td>{{ memo.user_id }}</td>	
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<br>
+									<div style=float:right>
+
+										{% if memo.delivery == True %}
+											<button class="btn btn-primary" onclick="on()">입금 확인용 사진</button>
+										{% endif %}
+										<a href="/{{ memo.pk }}/check/"><button class="btn btn-primary" type="button" onclick="return confirm('정말 입금하시겠습니까?')">입금하기</button></a>
+										<a href="/{{ memo.pk }}/deliver/"><button class="btn btn-primary" type="button">배송하기</button></a>
+										<a href="/{{ memo.pk }}/trade/"><button class="btn btn-primary" type="button">거래하기</button></a>
+										<a href="/{{ memo.pk }}/delete/"><button class="btn btn-primary" type="button">삭제하기</button></a>
+									</div>
+								
+									
+								</div>
+							</div>
+							{% if messages %}
+							{% for message in messages %}
+							{% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+			
+							{% endfor %}
+							{% endif %}
+						</article>
+						
+					
+					
+				</div>
+
+			</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<div class="flex">
+						<div class="copyright">
+							&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
+						</div>
+						<ul class="icons">
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
+							<li><a href="#" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
+							<li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
+						</ul>
+					</div>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="{% static 'blog/assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'blog/assets/js/skel.min.js' %}"></script>
+			<script src="{% static 'blog/assets/js/util.js' %}"></script>
+			<script src="{% static 'blog/assets/js/main.js' %}"></script>
+			<script>
+				function on() {
+				document.getElementById("overlay").style.display = "block";
+				}
+				
+				function off() {
+				document.getElementById("overlay").style.display = "none";
+				}
+			</script>
+	</body>
+
+	
+
+</html>
